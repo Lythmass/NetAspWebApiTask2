@@ -21,9 +21,10 @@ namespace Reddit.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Community>>> GetCommunities()
+        public async Task<ActionResult<IEnumerable<Community>>> GetCommunities(int pageNumber=1, int pageSize=3)
         {
-            return await _context.Communities.ToListAsync();
+            var communities = await _context.Communities.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return communities;
         }
 
         [HttpGet("{id}")]
