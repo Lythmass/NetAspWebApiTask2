@@ -24,9 +24,9 @@ namespace Reddit.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<PagedList<Community>>> GetCommunities(int pageNumber=1, int pageSize=2, string? search=null)
+        public async Task<ActionResult<PagedList<Community>>> GetCommunities(int pageNumber=1, int pageSize=2, string? search=null, string? sortKey=null, bool? isAscending=true)
         {
-            return await _communitiesRepository.GetCommunities(pageNumber, pageSize, search);
+            return await _communitiesRepository.GetCommunities(pageNumber, pageSize, search, sortKey, isAscending);
         }
 
         [HttpGet("{id}")]
