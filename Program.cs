@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Reddit;
 using Reddit.Mapper;
+using Reddit.Middlewares;
 using Reddit.Repositories;
 using System.Text.Json.Serialization;
 
@@ -42,6 +43,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthorization();

@@ -23,6 +23,10 @@ namespace Reddit.Repositories
 
         public static async Task<PagedList<T>> CreateAsync(IQueryable<T> items, int pageNumber, int pageSize)
         {
+            if (pageSize > 50)
+            {
+                throw new BadHttpRequestException("Page size must be less than or equal to 50.");
+            }
             var pagedItems = await items.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             var totalCount = await items.CountAsync();
             var hasNextPage = (pageNumber * pageSize) < totalCount;
